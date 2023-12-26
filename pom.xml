@@ -6,11 +6,12 @@
     <version>0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>grumpinessy</name>
+    <url>https://github.com/sviperll/grumpinessy</url>
     <dependencies>
         <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>9.3</version>
+            <version>10.12.6</version>
         </dependency>
     </dependencies>
     <properties>
@@ -86,7 +87,7 @@
                             <requireJavaVersion>
                                 <version>${java.version}</version>
                             </requireJavaVersion>
-                            <dependencyConvergence />
+                            <!-- <dependencyConvergence /> -->
                             <reactorModuleConvergence />
                             <requireUpperBoundDeps />
                             <requireNoRepositories />
@@ -267,19 +268,6 @@
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                         <executions>
                             <execution>
@@ -287,6 +275,19 @@
                                 <phase>package</phase>
                                 <goals>
                                     <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>sign</goal>
                                 </goals>
                             </execution>
                         </executions>
@@ -308,5 +309,13 @@
             </build>
         </profile>
     </profiles>
+    <description>
+        The project provides checkstyle.xml configuration that can be used by CheckStyle to enforce
+        opinionated formating and coding style that is somewhat similar to Sun's and OpenJDK's
+        styles, but includes authors preferences.
+
+        Additionally custom CheckStyle checkers can be used separately as part of some other
+        CheckStyle configuration.
+    </description>
 </project>
 
