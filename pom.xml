@@ -37,10 +37,10 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git://github.com/sviperll/grumpinessy.git</connection>
-        <developerConnection>scm:git:git@github.com:sviperll/grumpinessy.git</developerConnection>
-        <url>https://github.com/sviperll/grumpinessy</url>
-        <tag>grumpinessy-0.1</tag>
+        <connection>scm:git:${project.scm.url}</connection>
+        <developerConnection>scm:git:${project.scm.url}</developerConnection>
+        <url>git@github.com:sviperll/grumpinessy.git</url>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <repository>
