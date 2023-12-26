@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.sviperll</groupId>
     <artifactId>grumpinessy</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>grumpinessy</name>
     <dependencies>
@@ -40,7 +40,7 @@
         <connection>scm:git:${project.scm.url}</connection>
         <developerConnection>scm:git:${project.scm.url}</developerConnection>
         <url>git@github.com:sviperll/grumpinessy.git</url>
-        <tag>grumpinessy-0.2</tag>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <repository>
