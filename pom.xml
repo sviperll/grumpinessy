@@ -164,7 +164,8 @@
                     <version>2.5.3</version>
                     <configuration>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <useReleaseProfile>true</useReleaseProfile>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <releaseProfiles>release</releaseProfiles>
                     </configuration>
                 </plugin>
             </plugins>
