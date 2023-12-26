@@ -11,10 +11,11 @@
         <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>10.12.6</version>
+            <version>${version.com.puppycrawl.tools.checkstyle}</version>
         </dependency>
     </dependencies>
     <properties>
+        <version.com.puppycrawl.tools.checkstyle>10.12.6</version.com.puppycrawl.tools.checkstyle>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
     </properties>
@@ -57,6 +58,30 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>3.1.2</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>${version.com.puppycrawl.tools.checkstyle}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.github.sviperll</groupId>
+                            <artifactId>grumpinessy</artifactId>
+                            <version>0.4</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <configLocation>com/github/sviperll/grumpinessy/checkstyle.xml</configLocation>
+                        <propertyExpansion>basedir=${basedir}</propertyExpansion>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        <includeResources>false</includeResources>
+                        <includeTestResources>false</includeTestResources>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -205,6 +230,17 @@
                         <phase>clean</phase>
                         <goals>
                             <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>

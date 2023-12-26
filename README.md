@@ -1,6 +1,8 @@
 Grumpinessy
 ===========
 
+![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.sviperll/grumpinessy/badge.png?style=flat)
+
 This project consists of several parts:
 
  1. [my personal Checkstyle configuration](src/main/resources/com/github/sviperll/grumpinessy/checkstyle.xml)
