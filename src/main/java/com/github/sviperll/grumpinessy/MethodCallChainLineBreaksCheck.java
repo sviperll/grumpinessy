@@ -29,6 +29,36 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class MethodCallChainLineBreaksCheck extends AbstractCheck {
+    private static CodeSpan getCodeSpan(DetailAST ast) {
+        Location location = new Location(ast.getLineNo(), ast.getColumnNo());
+        CodeSpan span = new CodeSpan(location, location);
+        return Stream.iterate(ast.getFirstChild(), Objects::nonNull, DetailAST::getNextSibling)
+                .map(MethodCallChainLineBreaksCheck::getCodeSpan)
+                .reduce(span, CodeSpan::cover);
+    }
+
+    private static boolean isMethodCall(DetailAST ast) {
+        return ast.getType() == TokenTypes.METHOD_CALL;
+    }
+
+    private static int getDotLine(DetailAST call) {
+        return call.findFirstToken(TokenTypes.DOT).getLineNo();
+    }
+
+    private static DetailAST getTarget(DetailAST call) {
+        DetailAST dot = call.findFirstToken(TokenTypes.DOT);
+        return dot == null ? null : dot.getFirstChild();
+    }
+
+    private static boolean isMultilineCall(DetailAST call) {
+        DetailAST dot = call.findFirstToken(TokenTypes.DOT);
+        DetailAST rparen = call.findFirstToken(TokenTypes.RPAREN);
+        return dot != null && rparen != null && dot.getLineNo() != rparen.getLineNo();
+    }
+
+    private static boolean hasDot(DetailAST ast) {
+        return ast.findFirstToken(TokenTypes.DOT) != null;
+    }
 
     @Override
     public int[] getDefaultTokens() {
@@ -73,37 +103,6 @@ public class MethodCallChainLineBreaksCheck extends AbstractCheck {
         if (callLines[0] != callLines[1] && callLines[1] == callLines[2]) {
             log(calls.get(1), "multiple.method.calls.in.chain.on.same.line");
         }
-    }
-
-    private static CodeSpan getCodeSpan(DetailAST ast) {
-        Location location = new Location(ast.getLineNo(), ast.getColumnNo());
-        CodeSpan span = new CodeSpan(location, location);
-        return Stream.iterate(ast.getFirstChild(), Objects::nonNull, DetailAST::getNextSibling)
-                .map(MethodCallChainLineBreaksCheck::getCodeSpan)
-                .reduce(span, CodeSpan::cover);
-    }
-
-    private boolean hasDot(DetailAST ast) {
-        return ast.findFirstToken(TokenTypes.DOT) != null;
-    }
-
-    private static boolean isMethodCall(DetailAST ast) {
-        return ast.getType() == TokenTypes.METHOD_CALL;
-    }
-
-    private static int getDotLine(DetailAST call) {
-        return call.findFirstToken(TokenTypes.DOT).getLineNo();
-    }
-
-    private static DetailAST getTarget(DetailAST call) {
-        DetailAST dot = call.findFirstToken(TokenTypes.DOT);
-        return dot == null ? null : dot.getFirstChild();
-    }
-
-    private static boolean isMultilineCall(DetailAST call) {
-        DetailAST dot = call.findFirstToken(TokenTypes.DOT);
-        DetailAST rparen = call.findFirstToken(TokenTypes.RPAREN);
-        return dot != null && rparen != null && dot.getLineNo() != rparen.getLineNo();
     }
 
     record Location(int line, int column) implements Comparable<Location> {

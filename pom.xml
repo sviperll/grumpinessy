@@ -75,8 +75,9 @@
                         </dependency>
                     </dependencies>
                     <configuration>
+                        <!-- <configLocation>${basedir}/src/main/resources/com/github/sviperll/grumpinessy/checkstyle.xml</configLocation> -->
                         <configLocation>com/github/sviperll/grumpinessy/checkstyle.xml</configLocation>
-                        <propertyExpansion>basedir=${basedir}</propertyExpansion>
+                        <propertyExpansion>basedir=/</propertyExpansion>
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
                         <includeResources>false</includeResources>
                         <includeTestResources>false</includeTestResources>
@@ -210,26 +211,14 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <configuration>
-                    <flattenMode>ossrh</flattenMode>
-                    <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>flatten</id>
-                        <phase>prepare-package</phase>
+                        <id>compile-javadocs</id>
+                        <phase>compile</phase>
                         <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
+                            <goal>javadoc</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -263,21 +252,26 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <configuration>
+                    <flattenMode>ossrh</flattenMode>
+                    <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>compile-javadocs</id>
-                        <phase>compile</phase>
+                        <id>flatten</id>
+                        <phase>prepare-package</phase>
                         <goals>
-                            <goal>javadoc</goal>
+                            <goal>flatten</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>attach-javadocs</id>
-                        <phase>package</phase>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>clean</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -302,6 +296,19 @@
             <id>release</id>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>

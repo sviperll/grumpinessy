@@ -267,7 +267,7 @@ public class MembersOrderCheck extends AbstractCheck {
     record Positioned(boolean isStatic, Kind kind) {
         @Override
         public String toString() {
-            return switch(kind) {
+            return switch (kind) {
                 case VARIABLE -> (isStatic ? "static " : "") + "variable";
                 case INITIALIZER -> (isStatic ? "static " : "") + "initializer";
                 case CONSTRUCTOR -> "constructor";

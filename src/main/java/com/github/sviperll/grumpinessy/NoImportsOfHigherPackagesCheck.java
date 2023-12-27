@@ -71,9 +71,6 @@ public class NoImportsOfHigherPackagesCheck extends AbstractCheck {
 
         private final StringBuilder builder = new StringBuilder();
 
-        public DottedIdentifierReader() {
-        }
-
         private void appendEnclosedDot(DetailAST ast) {
             DetailAST dot = ast.findFirstToken(TokenTypes.DOT);
             if (dot != null) {
