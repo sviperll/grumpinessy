@@ -71,13 +71,12 @@
                         <dependency>
                             <groupId>com.github.sviperll</groupId>
                             <artifactId>grumpinessy</artifactId>
-                            <version>0.4</version>
+                            <version>0.5</version>
                         </dependency>
                     </dependencies>
                     <configuration>
                         <!-- <configLocation>${basedir}/src/main/resources/com/github/sviperll/grumpinessy/checkstyle.xml</configLocation> -->
                         <configLocation>com/github/sviperll/grumpinessy/checkstyle.xml</configLocation>
-                        <propertyExpansion>basedir=/</propertyExpansion>
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
                         <includeResources>false</includeResources>
                         <includeTestResources>false</includeTestResources>
